@@ -1,1 +1,3 @@
-web: gunicorn rentomatic.wsgi --log-file -
+web: gunicorn rentomatic.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
