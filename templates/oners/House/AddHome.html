@@ -1,0 +1,240 @@
+{% extends 'basic.html' %}
+{% load static %}
+{%block title%}Add House{%endblock%}
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'poppins', sans-serif;
+    }
+
+
+    .main_page {
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main_page .page_desings {
+        padding-top: 10rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .page_desings .web_info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .web_info img {
+        object-fit: cover;
+        background-position: center;
+        max-height: 25rem;
+        width: auto;
+        text-align: center;
+    }
+
+    .web_info h1 {
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        font-size: 5em;
+        font-weight: bold;
+        text-transform: capitalize;
+        color: #444;
+        text-align: center;
+        letter-spacing: 5px;
+        text-shadow: 0 0 8px #316472;
+    }
+
+    .form {
+        background: transparent;
+        max-width: 55rem;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .form .inputBox {
+        display: flex;
+        flex-wrap: wrap;
+        align: center;
+        justify-content: center;
+    }
+
+
+    .form h2 {
+        text-transform: capitalize;
+        color: #444;
+        font-weight: 700;
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .form input {
+        width: 20rem;
+        background: rgb(255, 255, 255, 0.2);
+        border: none;
+        outline: none;
+        text-transform: capitalize;
+        padding: 10px 20px;
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: #444;
+        margin: 0.5em;
+        border: 1px solid rgb(92, 90, 90);
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    }
+
+    .forget {
+        color: #444;
+        font-size: 15px;
+        font-weight: 700;
+        display: inline-block;
+    }
+
+    .forget a {
+        padding: 0 0.5em;
+        color: #444;
+        font-weight: 500;
+        font-size: 12px;
+    }
+
+
+    /* ################################## media queries######################### */
+    @media screen and (max-width:1280px) {
+
+        .page_desings .web_info img {
+            max-width: 28rem;
+            height: auto;
+        }
+
+        .page_desings .web_info h1 {
+            font-size: 3.5rem;
+            box-shadow: none;
+            color: #444;
+        }
+    }
+
+    @media screen and (max-width:1000px) {
+        .main_page .page_desings {
+            flex-direction: column;
+            padding: 7em 0em;
+            margin: 1em 0em;
+        }
+
+        .page_desings .web_info img {
+            max-width: 28rem;
+            height: auto;
+        }
+
+        .page_desings .web_info h1 {
+            font-size: 2.5rem;
+            box-shadow: none;
+            color: #444;
+        }
+
+        .page_desings .form {
+            max-width: 100%;
+        }
+
+    }
+
+    @media screen and (max-width:600px) {
+        .page_desings .web_info img {
+            max-width: 20rem;
+            height: auto;
+        }
+
+        .page_desings .form {
+            width: 100%;
+        }
+
+        .form input {
+            height: auto;
+            max-width: 19rem;
+        }
+
+    }
+
+    @media screen and (max-width:480px) {
+
+        .page_desings .web_info img {
+            max-width: 15rem;
+        }
+
+        .page_desings .form {
+            display: block;
+        }
+
+        .form .inputBox {
+            flex-wrap: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+        }
+
+        .inputBox input {
+            max-width: 25rem;
+        }
+
+        .form h2 {
+            text-shadow: 0 0 8px #316472;
+        }
+
+        .forget {
+            padding: 0 3rem;
+        }
+    }
+</style>
+
+
+{% endblock %}
+
+{%block body%}
+
+<section class="main_page">
+    <div class="page_desings">
+        <div class="web_info">
+            <img src="{% static 'images/house.png' %}" alt="">
+            <h1 class="web_main_heading">Rentomatic</h1>
+        </div>
+        <div class="form">
+            <form action="/oners/AddHome/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2 class="signup-heading">SignUp Form</h2>
+                <div class="inputBox">
+                    <input type="file" value="{{home_image}}" id="img" name="img" accept="static/images" required>
+                    <input type="text" spellcheck="true" value="{{home_name}}" name="home_name" id=""
+                        placeholder="House Name" required>
+                    <input type="text" spellcheck="true" value="{{city}}" name="city" id="" placeholder="City" required>
+                    <input type="number" spellcheck="true" value="{{user_mobile_no}}" name="user_mobile_no" id=""
+                        placeholder="Mobile Number" required>
+                    <input name="home_info" value="{{home_info}}" spellcheck="true" id="" cols="30" rows="10"
+                        placeholder="Home Information" required></input>
+                    <input type="text" spellcheck="true" value="{{home_address}}" name="home_address" id=""
+                        placeholder="Address" required>
+                    <input type="number" spellcheck="true" value="{{rent}}" name="rent" id="" placeholder="Rent"
+                        required>
+                    <button class="btn"><a>Submit</a></button>
+                </div>
+                <div class="other_links">
+                    <!-- <p class="forget">Log In <a href="{% url 'Login' %}">Click Here</a></p> -->
+                    <p class="forget">Home <a href="{% url 'home' %}">Click Here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{%endblock%}

@@ -1,0 +1,189 @@
+{% extends 'basic.html' %}
+{%block title%}Rental{%endblock%}
+{% block css %}
+
+{% endblock %}
+
+{%block body%}
+<!--/ Intro Single star /-->
+{% for Rental in home_rentals %}
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single" style=>{{Rental.home_name}}</h1>
+                    <span class="color-text-a">{{Rental.home_address}}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'AllRentals' %}">All Rentals</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{Rental.home_name}}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ Property Single Star /-->
+<section class="property-single nav-arrow-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
+                    <div class="carousel-item-b">
+                        <img src="{{Rental.home_image.url}}" alt="">
+                    </div>
+                    <div class="carousel-item-b">
+                        <img src="{{Rental.home_image.url}}" alt="">
+                    </div>
+                    <div class="carousel-item-b">
+                        <img src="{{Rental.home_image.url}}" alt="">
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col-md-5 col-lg-4">
+                        <div class="property-price d-flex justify-content-center foo">
+                            <div class="card-header-c d-flex">
+                                <div class="card-box-ico">
+                                    <span class="ion-money">Rs</span>
+                                </div>
+                                <div class="card-title-c align-self-center">
+                                    <h5 class="title-c">{{Rental.home_rent}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-lg-7 section-md-t3">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="title-box-d">
+                                    <h3 class="title-d">Property Description</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="property-description">
+                            <p class="description color-text-a" style="text-transform: capitalize;">
+                                {{Rental.home_info}}
+                            </p>
+                            <p class="description color-text-a no-margin" style="text-transform:capitalize;">
+                                {{Rental.home_address}}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row section-t3">
+                    <div class="col-sm-12">
+                        <div class="title-box-d">
+                            <h3 class="title-d">Contact Oner</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <img src="{{Rental.user.profile.image.url}}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="property-agent">
+                            <h4 class="title-agent" style="text-transform:capitalize;">{{Rental.user.first_name}}
+                                {{Rental.user.last_name}}</h4>
+                            <p class="color-text-a" style="text-transform:capitalize;">
+                                {{Rental.home_address}}
+                            </p>
+                            <ul class="list-unstyled">
+                                <li class="d-flex justify-content-between">
+                                    <strong>Mobile:</strong>
+                                    <span class="color-text-a">(+91) {{Rental.oner_mobile_no}}</span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <strong>Email:</strong>
+                                    <span class="color-text-a">{{Rental.user.email}}</span>
+                                </li>
+                            </ul>
+                            <div class="socials-a">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="property-contact">
+                            <form class="form-a" action="/oners/Message/" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 mb-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-lg form-control-a"
+                                                id="inputName" placeholder="Name *" required>
+                                            <input type="hidden" name="receiver_id" value="{{Rental.user.id}}" readonly>
+                                            <input type="hidden" name="Rental_id" value="{{Rental_id}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-1">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-lg form-control-a"
+                                                id="inputEmail1" placeholder="Email *" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-1">
+                                        <div class="form-group">
+                                            <textarea id="textMessage" class="form-control" placeholder="Send Message *"
+                                                name="message" cols="45" rows="8" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-a">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Property Single End /-->
+{% endfor %}
+
+
+{%endblock%}

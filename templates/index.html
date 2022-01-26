@@ -1,0 +1,207 @@
+{% extends 'basic.html' %}
+{% load static %}
+{%block title%}Remtomatic{%endblock%}
+
+{%block body%}
+<div class="click-closed"></div>
+
+<!--/ Carousel Star /-->
+<div class="intro intro-carousel" id="Home">
+  <div id="carousel" class="owl-carousel owl-theme">
+    <div class="carousel-item-a intro-item bg-image" style="background-image: url({%static 'images/slide-2.jpg' %})">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <p class="intro-title-top">Find Out Rental Homes, Rooms And Bildings
+                    <br> On Rentomatic
+                  </p>
+                  <h1 class="intro-title mb-4">
+                    <span class="color-b">Welcome</span> To
+                    <br> Rentomatic
+                  </h1>
+                  <p class="intro-subtitle intro-price">
+                    <a href="#Homes"><span class="price-a">Explore</span></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item-a intro-item bg-image" style="background-image:url({%static 'images/slide-1.jpg' %})">
+      <div class=" overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <p class="intro-title-top">Find Out Rental Homes, Rooms And Bildings
+                    <br> On Rentomatic
+                  </p>
+                  <h1 class="intro-title mb-4">
+                    <span class="color-b">Welcome</span> To
+                    <br> Rentomatic
+                  </h1>
+                  <p class="intro-subtitle intro-price">
+                    <a href="#Homes"><span class="price-a">Explore</span></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item-a intro-item bg-image" style="background-image:url({%static 'images/slide-3.jpg' %})">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <p class="intro-title-top">Find Out Rental Homes, Rooms And Bildings
+                    <br> On Rentomatic
+                  </p>
+                  <h1 class="intro-title mb-4">
+                    <span class="color-b">Welcome </span> To
+                    <br> Rentomatic
+                  </h1>
+                  <p class="intro-subtitle intro-price">
+                    <a href="#Homes"><span class="price-a">Explore</span></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ Carousel end /-->
+
+<!--/ Home Posts /-->
+{% if home_rentals %}
+<section class="section-agents section-t8" id="Homes">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title-wrap d-flex justify-content-between">
+          <div class="title-box">
+            <h2 class="title-a">Best Homes</h2>
+          </div>
+          <div class="title-link">
+            <a href="{% url 'AllRentals' %}" class="">All Rentals
+              <span class=" ion-ios-arrow-forward"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="house_posts">
+
+    {% for posts in home_rentals %}
+    <div class="bookinfo">
+      <div class="bookimg">
+        <img src="/media/{{posts.home_image}}" alt="">
+      </div>
+
+      <div class="booktext" id="post{{forloop.counter}}">
+        <div class="user-info1">
+          <img src="{{posts.user.profile.image.url}}" alt="">
+          <h2 class="user-name">{{posts.user.username}}</h2>
+        </div>
+
+        <h2 class="home-name">{{posts.home_name}}</h2>
+        <p class="book-category"><b>Location : </b>{{posts.home_city}}</p>
+        <p class="book-outher"><b>Home Oner : </b>{{posts.user.first_name}} {{posts.user.last_name}}</p>
+        <p class="user-mobile-no"><b>Mobile No : </b>+91 {{posts.oner_mobile_no}}</p>
+        <p class="user-address"><b>Address : </b>{{posts.home_address}}</p>
+        <button class="requestButton"><a href="{% url 'Rentals' %}?Rental={{posts.id}}">view</a>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+{% endif %}
+<!--/ Home Posts End /-->
+
+<!--/ About Us /-->
+<section class="section-testimonials section-t8 nav-arrow-a" id="AboutUs">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title-wrap d-flex justify-content-between">
+          <div class="title-box">
+            <h2 class="title-a">About Us</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="testimonial-carousel" class="owl-carousel owl-arrow">
+      <div class="carousel-item-a">
+        <div class="testimonials-box">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="testimonial-img">
+                <img src="{%static 'images/rentomatic_Background.jpg' %}" alt="" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="testimonial-ico">
+                <span class="ion-ios-quote"></span>
+              </div>
+              <div class="testimonials-content">
+                <p class="testimonial-text">
+                  Rentomatic Provides Number Of Houses, Bildings And Rooms On Rent. Here You Can Find Out Rooms And
+                  House As Your Choice.
+              </div>
+              <div class="testimonial-author-box">
+                <img src="{%static 'images/home1.png' %}" alt="" class="testimonial-avatar">
+                <h5 class="testimonial-author">Rentomatic</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item-a">
+        <div class="testimonials-box">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="testimonial-img">
+                <img src="{%static 'images/h1.jpg' %}" alt="" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="testimonial-ico">
+                <span class="ion-ios-quote"></span>
+              </div>
+              <div class="testimonials-content">
+                <p class="testimonial-text">
+                  Rentomatic Provides Number Of Houses, Bildings And Rooms On Rent. Here You Can Find Out Rooms And
+                  House As Your Choice.
+                </p>
+              </div>
+              <div class="testimonial-author-box">
+                <img src="{%static 'images/house.png' %}" alt="" class="testimonial-avatar">
+                <h5 class="testimonial-author">Rentomatic</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ About Usss End /-->
+
+{%endblock%}

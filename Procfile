@@ -1,0 +1,1 @@
+web: gunicorn rentomatic.wsgi --log-file -

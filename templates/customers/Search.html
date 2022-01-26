@@ -1,0 +1,127 @@
+{% extends 'basic.html' %}
+{% load static %}
+{%block title%}Search Results{%endblock%}
+
+
+{%block body%}
+<!--/ Intro Single star /-->
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    {% if home_rentals %}
+                    <h1 class="title-single">Our Amazing Rentals</h1>
+                    <span class="color-text-a">Grid Rentals</span>
+                    {% else %}
+                    <h1 class="title-single">No Search Results Found</h1>
+                    <span class="color-text-a">Your Search Query <b>{{Query}}</b> did not match any documents. Try
+                        Another Keywords.</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Rentals Grid
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ Property Grid Star /-->
+{% if home_rentals %}
+<section class="property-grid grid">
+    <div class="container">
+        <div class="row">
+
+            <div class="house_posts">
+                {% for posts in home_rentals %}
+                <div class="bookinfo">
+                    <div class="bookimg">
+                        <img src="/media/{{posts.home_image}}" alt="">
+                    </div>
+
+                    <div class="booktext" id="post{{forloop.counter}}">
+                        <div class="user-info1">
+                            <img src="{{posts.user.profile.image.url}}" alt="">
+                            <form action="/requestProfile/" method="get">{% csrf_token %}
+                                <input type="hidden" name="UserId" value="{{posts.user.id}}" readonly>
+                                <button type="submit">
+                                    <h3 class="user-name"></h3>{{posts.user.username}}</h3>
+                                </button>
+                            </form>
+                        </div>
+
+                        <h2 class="home-name">{{posts.home_name}}</h2>
+                        <p class="book-category"><b>Location : </b>{{posts.home_city}}</p>
+                        <p class="book-outher"><b>Home Oner : </b>{{posts.user.first_name}} {{posts.user.last_name}}
+                        </p>
+                        <p class="user-mobile-no"><b>Mobile No : </b>+91 {{posts.oner_mobile_no}}</p>
+                        <p class="user-address"><b>Address : </b>{{posts.home_address}}</p>
+                        <button class="requestButton"><a href="{% url 'Rentals' %}?Rental={{posts.id}}">view</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <nav class="pagination-a">
+                    <ul class="pagination justify-content-end">
+                        {% if home_rentals.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="{% url 'Search' %}?Query=sagar&page={{home_rentals.previous_page_number}}">
+                                <span class="ion-ios-arrow-back"></span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if home_rentals.has_previous %}
+                        <li class="page-item active">
+                            <a class="page-link">{{home_rentals.previous_page_number}}</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item active">
+                            <a class="page-link">{{home_rentals.number}}</a>
+                        </li>
+                        {% if home_rentals.has_next %}
+                        <li class="page-item active">
+                            <a class="page-link">{{home_rentals.next_page_number}}</a>
+                        </li>
+                        {% endif %}
+                        {% if home_rentals.has_next %}
+                        <li class="page-item next">
+                            <a class="page-link"
+                                href="{% url 'Search' %}?Query=sagar&page={{home_rentals.next_page_number}}">
+                                <span class="ion-ios-arrow-forward"></span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<ul>
+    <li>Your Search Query <b>{{Query}}</b> did not match any documents.</li>
+    <li>Try Different Keywords.</li>
+    <li>Try More General Keyword.</li>
+    <li>Try Different Keywords</li>
+</ul>
+{% endif %}
+<!--/ Property Grid End /-->
+
+
+{%endblock%}

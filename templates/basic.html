@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link href="{%static 'images/house.png'%}" rel="icon">
+    <link href="{%static 'images/apple-touch-icon.png'%}" rel=" apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="{%static 'lib/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="{%static 'lib/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet">
+    <link href="{%static 'lib/animate/animate.min.css'%}" rel="stylesheet">
+    <link href="{%static 'lib/ionicons/css/ionicons.min.css'%}" rel="stylesheet">
+    <link href="{%static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
+    <!-- Main Stylesheet File -->
+    <link href="{%static 'css/style.css'%}" rel="stylesheet">
+    <!-- Link Rentomatic css -->
+    <!-- <link href="{%static 'css/Rentomatic.css'%}" rel="stylesstylesheet"> -->
+
+
+    <title>{% block title %} {% endblock %}</title>
+</head>
+{%block css%}
+
+{%endblock%}
+
+<body>
+    <section class="bodydesigns">
+        {% if messages %}
+        {% for message in messages %}
+        <div id="popup1" class="popup1">
+            <div class="popup">
+                <h2>{{ message.tags }}</h2>
+                <a onclick="popup()" class="close">&times;</a>
+                <div class="content">
+                    {{message}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    </section>
+
+
+    <!-- ###########################################################################3 -->
+    <!--/ Form Search Star /-->
+    <div class="box-collapse" id="box-collapse">
+        <div class="title-box-d">
+            <h3 class="title-d">Search Rentals</h3>
+        </div>
+        <span class="close-box-collapse right-boxed ion-ios-close"></span>
+        <div class="box-collapse-wrap form">
+            <form class="form-a" action="/customers/Search">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <div class="form-group">
+                            <label for="Type">Keyword</label>
+                            <input type="text" class="form-control form-control-lg form-control-a" Name="Query"
+                                placeholder="Keyword">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-b">Search Rentals</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ Form Search End /-->
+    <!--/ Nav Star /-->
+    <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a class="navbar-brand text-brand" href="{% url 'home' %}#Home">Rento<span class="color-b">Matic</span></a>
+            <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none"
+                data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home'%}#Home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home'%}#AboutUs">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#Homes">Rentals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Contact' %}">Contact Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="text-transform: capitalize;">
+                            {% if request.user.username == "" %}
+                            User
+                            {% else %}
+                            {{request.user.username}}
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if request.user.username == "" %}
+                            <a class="dropdown-item" href="{% url 'Login' %}">Sign In</a>
+                            <a class="dropdown-item" href="{% url 'SignUp' %}">Sign Up</a>
+                            {% else %}
+                            <a class="dropdown-item" href="{% url 'AddHome' %}">Add Rental</a>
+                            <a class="dropdown-item" href="{% url 'Profile' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'SignOut' %}">Sign Out</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block"
+                data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </div>
+    </nav>
+    <!--/ Nav End /-->
+
+    {% block body %} {% endblock %}
+
+    <!--/ footer Star /-->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="nav-footer">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="{% url 'home'%}#Home">Home</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{% url 'home'%}#AboutUs">About Us</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{% url 'home' %}#Homes">Rentals</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{% url 'Contact' %}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="socials-a">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="copyright-footer">
+                        <p class="copyright color-text-a">
+                            &copy; Copyright
+                            <span class="color-a">RentoMatic</span> All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="credits">
+                        Designed by <a href="https://www.instagram.com/_sagar_0201_/">Sagar Kakade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ Footer End /-->
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <div id="preloader"></div>
+
+    <!-- JavaScript Libraries -->
+    <script src="{%static 'lib/jquery/jquery.min.js'%}"></script>
+    <script src="{%static 'lib/jquery/jquery-migrate.min.js'%}"></script>
+    <script src="{%static 'lib/popper/popper.min.js'%}"></script>
+    <script src="{%static 'lib/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'lib/easing/easing.min.js'%}"></script>
+    <script src="{%static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+    <script src="{%static 'lib/scrollreveal/scrollreveal.min.js'%}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="{%static 'JavaScript/main.js'%}"></script>
+    <script>
+        function popup() {
+            document.getElementById("popup1").style.display = "none";
+        }
+    </script>
+    {% block js %}
+
+    {% endblock %}
+</body>
+
+</html>
